@@ -34,15 +34,15 @@ fi
 arrPY_VERSIONS=(${PY_VERSIONS// / })
 for PY_VER in "${arrPY_VERSIONS[@]}"; do
     # Update pip
-    /opt/python/"${PY_VER}"/bin/pip install --upgrade --no-cache-dir pip
+    /opt/hostedtoolcache/python/"${PY_VER}"/bin/pip install --upgrade --no-cache-dir pip
 
     # Check if requirements were passed
     if [ ! -z "$BUILD_REQUIREMENTS" ]; then
-        /opt/python/"${PY_VER}"/bin/pip install --no-cache-dir ${BUILD_REQUIREMENTS} || { echo "Installing requirements failed."; exit 1; }
+        /opt/hostedtoolcache/python/"${PY_VER}"/bin/pip install --no-cache-dir ${BUILD_REQUIREMENTS} || { echo "Installing requirements failed."; exit 1; }
     fi
 
     # Build wheels
-    /opt/python/"${PY_VER}"/bin/pip wheel . ${PIP_WHEEL_ARGS} || { echo "Building wheels failed."; exit 1; }
+    /opt/hostedtoolcache/python/"${PY_VER}"/bin/pip wheel . ${PIP_WHEEL_ARGS} || { echo "Building wheels failed."; exit 1; }
 done
 
 # Bundle external shared libraries into the wheels
